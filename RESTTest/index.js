@@ -4,6 +4,10 @@ const {v4: uuid} = require('uuid'); // For generating unique ID's
 const express = require('express');
 const app = express();
 
+//To parse form data in POST request body:
+app.use(express.urlencoded({ extended: true }))
+// To parse incoming JSON in POST request body:
+app.use(express.json())
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -27,6 +31,13 @@ let userPosts = [
 app.get('/posts', (req, res) => {
   res.render('posts/index', { userPosts});
 })
+//***************************************************
+// NEW - Renders a new form
+//***************************************************
+app.get('/posts/new', (req, res) =>{
+  res.render('posts/new');
+})
+
 
 
 app.listen(3000, () => {
