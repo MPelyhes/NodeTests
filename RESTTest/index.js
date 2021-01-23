@@ -67,7 +67,17 @@ app.get('/posts/:id/edit', (req, res) => {
 // ***************************************************
 // UPDATE - Updates a particular comment
 // ***************************************************
+app.patch('/posts/:id', (req, res) => {
+  const { id } = req.params;
+  const foundPost = userPosts.find(post => post.id === id);
 
+  // Get new text from req.body
+  const newPostText = req.body.post;
+  // Update the comment with the data from req.body:
+  foundPost.bookSum = newPostText;
+  // Redirect back to the index
+  res.redirect('/posts')
+})
 //****************************************************
 // DELETE/DESTROY - Remoces a single post
 // ***************************************************
