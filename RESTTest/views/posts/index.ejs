@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posts Index</title>
+</head>
+
+<body>
+  <h1>Book Posts</h1>
+  <ul>
+    <% for(let post of userPosts) {%> 
+    <li>
+        <b><%= post.bookTitle%></b> - <%= post.bookSum %> 
+    </li>  
+    <% } %> 
+  </ul>
+</body>
+
+</html>
