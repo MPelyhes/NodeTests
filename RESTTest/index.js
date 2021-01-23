@@ -29,7 +29,7 @@ let userPosts = [
 //**************************************************
 
 app.get('/posts', (req, res) => {
-  res.render('posts/index', { userPosts});
+  res.render('posts/index', { userPosts });
 })
 //***************************************************
 // NEW - Renders a new form
@@ -37,9 +37,19 @@ app.get('/posts', (req, res) => {
 app.get('/posts/new', (req, res) =>{
   res.render('posts/new');
 })
-
+// **************************************************
+// CREATE - Creates a new post
+// **************************************************
+app.post('/posts', (req, res) => {
+  const { bookTitle, bookSum} = req.body;
+  userPosts.push({bookTitle, bookSum, id: uuid()})
+  console.log(userPosts);
+  res.redirect('/posts');
+})
 
 
 app.listen(3000, () => {
   console.log("ON PORT 3000!")
 })
+ 
+console.log(userPosts);
