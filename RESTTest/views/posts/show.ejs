@@ -11,6 +11,8 @@
   <p><%= posts.bookSum  %> </p>
   <a href="/posts">Back to Index</a>
   <a href="/posts/<%= posts.id %>/edit">Edit Comment</a>
-  
+  <form method="POST" action="/posts/<%= posts.id %>?_methodDELETE">
+    <button>Delete</button>
+  </form>
 </body>
 </html>

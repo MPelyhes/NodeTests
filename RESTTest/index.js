@@ -59,18 +59,25 @@ app.get('/posts/:id', (req, res) => {
 // ***************************************************
 // EDIT - Renders a form to edit a comment
 // ***************************************************
-// app.get('/posts/:id/edit', (req, res) => {
-//   const { id } = req.params;
-//   const posts = userPosts.find(post => post.id === id);
-//   console.log(posts.id)
-//   res.render('posts/edit', { posts })
-// })
-
-app.get('/posts/:id', (req, res) => {
+app.get('/posts/:id/edit', (req, res) => {
   const { id } = req.params;
   const posts = userPosts.find(post => post.id === id) ;
   res.render('posts/edit', { posts })
 })
+// ***************************************************
+// UPDATE - Updates a particular comment
+// ***************************************************
+
+//****************************************************
+// DELETE/DESTROY - Remoces a single post
+// ***************************************************
+app.delete('/posts/id:', (req, res) => {
+  const { id } = req.params;
+  posts = userPosts.filter(post => post.id !== id);
+  res.redirect('/comments')
+})
+
+
 
 
 app.listen(3000, () => {
