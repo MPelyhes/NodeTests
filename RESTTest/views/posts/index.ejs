@@ -11,10 +11,12 @@
   <ul>
     <% for(let post of userPosts) {%> 
     <li>
-        <b><%= post.bookTitle%></b> - <%= post.bookSum %> 
+        <b><%= post.bookTitle%></b> - <%= post.bookSum %>
+        <a href="/posts/<%=post.id%> ">Details</a> 
     </li>  
     <% } %> 
   </ul>
+  <a href="/posts/new">Add New Book</a>
 </body>
 
 </html>

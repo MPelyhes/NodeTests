@@ -8,7 +8,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }))
 // To parse incoming JSON in POST request body:
 app.use(express.json())
-
+// To 'fake' put/patch/delete requests:
+app.use(methodOverride('_method'))
+// Views folder and EJS setup:
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
@@ -46,10 +48,32 @@ app.post('/posts', (req, res) => {
   console.log(userPosts);
   res.redirect('/posts');
 })
+// ***************************************************
+// SHOW - Details about one particular post
+// ***************************************************
+app.get('/posts/:id', (req, res) => {
+  const { id } = req.params;
+  const posts = userPosts.find(post => post.id === id) ;
+  res.render('posts/show', { posts })
+})
+// ***************************************************
+// EDIT - Renders a form to edit a comment
+// ***************************************************
+// app.get('/posts/:id/edit', (req, res) => {
+//   const { id } = req.params;
+//   const posts = userPosts.find(post => post.id === id);
+//   console.log(posts.id)
+//   res.render('posts/edit', { posts })
+// })
+
+app.get('/posts/:id', (req, res) => {
+  const { id } = req.params;
+  const posts = userPosts.find(post => post.id === id) ;
+  res.render('posts/edit', { posts })
+})
 
 
 app.listen(3000, () => {
   console.log("ON PORT 3000!")
 })
  
-console.log(userPosts);

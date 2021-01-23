@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Page</title>
 </head>
+
 <body>
+  <h1>Edit</h1>
+  <form method="POST" action="/comments/<%=posts.id%>?_method=PATCH">
+  <textarea name="post" id="" cols="30" rows="10"><%= posts.bookSum %> </textarea>
   
 </body>
+
 </html>
