@@ -14,6 +14,7 @@ app.use(methodOverride('_method'))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+// Fake database
 let userPosts = [
   {
     id: uuid(),
@@ -81,14 +82,11 @@ app.patch('/posts/:id', (req, res) => {
 //****************************************************
 // DELETE/DESTROY - Remoces a single post
 // ***************************************************
-app.delete('/posts/id:', (req, res) => {
+app.delete('/posts/:id', (req, res) => {
   const { id } = req.params;
-  posts = userPosts.filter(post => post.id !== id);
-  res.redirect('/comments')
+  userPosts = userPosts.filter(post => post.id !== id);
+  res.redirect('/posts')
 })
-
-
-
 
 app.listen(3000, () => {
   console.log("ON PORT 3000!")
