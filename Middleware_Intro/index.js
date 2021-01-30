@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 
+const AppError = require('./AppError');
+
 app.use(morgan('tiny'))
 
 const verifyPassword = ((req, res, next) => {
@@ -9,17 +11,29 @@ const verifyPassword = ((req, res, next) => {
   if(password === 'chickennugget') {
     next();
   }
-  res.send('Sorry, you need a password to get in here...')
+  // res.status(401)
+  // res.send('Sorry, you need a password to get in here...')
+  throw new AppError('Password required', 401);
 });
 
 app.use((req, res, next) => {
-  console.log(req.method.toUpperCase())
-  next()
+  req.requestTime = Date.now();
+  console.log(req.method, req.path);;
+  next();
 })
 
 app.use('/dogs', (req, res, next) => {
   console.log("I love Dogs!");
   next();
+})
+
+app.get('/', (req, res) => {
+  console.log(`Request Date: ${req.requestTime}`);
+  res.send('Home Page!')
+})
+
+app.get('/error', (req, res) => {
+  chicken.fly();
 })
 
 app.get('/', (req, res) => {
@@ -34,8 +48,25 @@ app.get('/secret', verifyPassword, (req, res) => {
   res.send('Sometimes I am too tired to thinkkkk')
 })
 
+app.get('/admin', (req, res) => {
+  throw new AppError('You Are Not An Admin', 403)
+})
+
 app.use((req, res) => {
   res.status(404).send('Not Found!')
+})
+
+// app.use((err, req, res, next) => {
+//   console.log('******************************');
+//   console.log('**************Error***********');
+//   console.log('******************************');
+//   console.log(err)
+//   next(err)
+// })
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = 'Something went wrong' } = err;
+  res.status(status).send(message)
 })
 
 app.listen(3000, () => {
