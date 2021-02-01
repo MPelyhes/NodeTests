@@ -7,11 +7,11 @@
 </head>
 
 <body>
-  
+
     <h1>All Farms</h1>
     <ul>
       <% for(let farm of farms){ %> 
-      <li><%= farm.name  %> </li>  
+      <li><a href="/farms/<%=farm._id%>"><%= farm.name  %></a></li>  
       <% } %> 
     </ul>
 
