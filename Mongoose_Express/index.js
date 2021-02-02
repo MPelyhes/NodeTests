@@ -31,14 +31,19 @@ app.get('/farms', wrapAsync(async(req, res) => {
   res.render('farms/index', { farms })
 }))
 
-app.get('/farms/:id', async (req, res) => {
+app.get('/farms/:id', wrapAsync(async (req, res) => {
   const farm = await Farm.findById(req.params.id).populate('products');
   res.render('farms/show', { farm })
+}))
+
+app.delete('/farms/:id', async (req, res) => {
+  const farm = await Farm.findByIdAndDelete(req.params.id);
+  res.redirect('/farms');
 })
 
-app.get('/farms/new', (req, res) => {
-  res.render('farms/new')
-})
+app.get('/farms/new', wrapAsync(async (req,res) => {
+  res.render('/farms/new');
+}))
 
 app.post('/farms', wrapAsync(async (req, res) => {
   const farm = new Farm(req.body);
